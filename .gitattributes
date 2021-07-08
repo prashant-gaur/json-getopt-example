@@ -1,0 +1,53 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+###############################################################################
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+# C/C++
+###############################################################################
+*.c text
+*.cc text
+*.cxx text
+*.cpp text
+*.c++ text
+*.hpp text
+*.h text
+*.h++ text
+*.hh text
+
+###############################################################################
+# Declare files that will always have CRLF line endings on checkout.
+###############################################################################
+*.bat text eol=crlf
+
+###############################################################################
+# Declare files that will always have LF line endings on checkout.
+###############################################################################
+*.sh text eol=lf
+
+###############################################################################
+# Denote all files that are truly binary and should not be modified.
+###############################################################################
+*.png binary
+*.jpg binary
+*.exe binary
+*.dat binary
+*.dll binary
+*.so binary
+
+###############################################################################
+# Denote all files that are should be translated to plain text before diff
+###############################################################################
+*.doc diff=astextplain
+*.DOC diff=astextplain
+*.docx diff=astextplain
+*.DOCX diff=astextplain
+*.dot diff=astextplain
+*.DOT diff=astextplain
+*.pdf diff=astextplain
+*.PDF diff=astextplain
+*.rtf diff=astextplain
+*.RTF diff=astextplain

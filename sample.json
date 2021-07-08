@@ -1,0 +1,11 @@
+{
+    "Department": "Electronics",
+    "Student ID": 21453,
+    "Subjects": [
+        "Maths",
+        "Physics",
+        "Chemistry"
+    ],
+    "firstName": "Sean",
+    "lastName": "Brown"
+}

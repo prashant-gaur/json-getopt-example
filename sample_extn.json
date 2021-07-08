@@ -1,0 +1,24 @@
+{
+    "School1": {
+        "Student ID": 21453,
+        "Department": "Electronics",
+        "Subjects": [
+            "Maths",
+            "Physics",
+            "Chemistry"
+        ],
+        "firstName": "Sean",
+        "lastName": "Brown"
+    },
+    "School2": {
+        "Department": "Language",
+        "Student ID": 21454,
+        "Subjects": [
+            "Hindi",
+            "Sanskrit",
+            "English"
+        ],
+        "firstName": "Prashant",
+        "lastName": "Gaur"
+    }
+}
