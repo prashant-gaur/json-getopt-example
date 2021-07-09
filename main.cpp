@@ -1,12 +1,92 @@
 #include "json.hpp"
 #include <exception>
 #include <fstream>
+#include <getopt.h>
 #include <iostream>
+#include <stdlib.h>
+
+#define PROGRAM_NAME "json-example"
+// This will updated via tag version of git repo
+//#define APP_VERSION "1.0.0"
 
 using json = nlohmann::json;
 
+static const char* filepath;
+
+static const char app_info[] = PROGRAM_NAME " version " APP_VERSION
+                                            " - example application to demo json parsing\n";
+
+static const char usage[] = "usage: " PROGRAM_NAME
+                            " [-f <path to json config file>]\n";
+
+static const char optionsstr[] = "\t-f PATH --filelocation=PATH path to json config file\n"
+                                 "\t-h --help print application usage\n"
+                                 "\t-v --version print application version info\n";
+
+/*
+# define no_argument        0
+# define required_argument  1
+# define optional_argument  2
+*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+static const struct option long_options[] = {
+    { "filelocation", required_argument, NULL, 'f' },
+    { "help", no_argument, NULL, 'h' },
+    { "version", no_argument, NULL, 'v' },
+    { NULL, 0, NULL, 0 },
+};
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+
+static const char* optstring = "f:hv";
+
+static int parse_app_cmdline_config(int argc, char* argv[])
+{
+    int key = 0;
+    if (argc == 1) {
+        printf("%s", usage);
+        printf("%s", optionsstr);
+        exit(EXIT_FAILURE);
+    }
+
+    while ((key = getopt_long(argc, argv, optstring, long_options, NULL)) != -1) {
+        switch (key) {
+        case 'f':
+            filepath = optarg;
+            break;
+        case 'h':
+            printf("%s", usage);
+            printf("%s", optionsstr);
+            exit(EXIT_SUCCESS);
+            break;
+        case 'v':
+            printf("%s", app_info);
+            exit(EXIT_SUCCESS);
+            break;
+        case ':':
+            printf("Parameter is missing");
+            exit(EXIT_FAILURE);
+            break;
+        default:
+            printf("%s", usage);
+            return -1;
+        }
+    }
+
+    return 0;
+}
+
 int main(int argc, char* argv[])
 {
+
+    int err = parse_app_cmdline_config(argc, argv);
+    if (err)
+        exit(EXIT_FAILURE);
 
 #if false
     // create json object in memory
@@ -23,7 +103,7 @@ int main(int argc, char* argv[])
 #endif
 
     // read json file into string
-    std::ifstream inputfile("/home/gpr3hi/Desktop/C++/JSON/sample_extn.json");
+    std::ifstream inputfile(filepath);
     if (!inputfile.is_open()) {
         std::cout << "could not open file ..." << std::endl;
         return -1;

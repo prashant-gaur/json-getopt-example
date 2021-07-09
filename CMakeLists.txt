@@ -1,11 +1,15 @@
 cmake_minimum_required (VERSION 3.1.3)
-include(GNUInstallDirs)
 
 ## Project
 project (JsonTestExample CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 ## Build
 add_executable (${PROJECT_NAME} "")
+
+## Version
+include(version)
 
 ## Sources
 target_sources(
