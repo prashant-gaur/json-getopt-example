@@ -1,6 +1,6 @@
 About
 =============
-This is a simple application to demo json parsing.
+This is a simple application to demo json parsingand how to utlise getopt to read commandline options.
 
 
 Build
