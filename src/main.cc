@@ -5,18 +5,14 @@
 #include <iostream>
 #include <stdlib.h>
 
-#define PROGRAM_NAME "json-example"
-// This will updated via tag version of git repo
-//#define APP_VERSION "1.0.0"
-
 using json = nlohmann::json;
 
 static const char* filepath;
 
-static const char app_info[] = PROGRAM_NAME " version " APP_VERSION
+static const char app_info[] = APP_NAME " version " APP_VERSION
                                             " - example application to demo json parsing\n";
 
-static const char usage[] = "usage: " PROGRAM_NAME
+static const char usage[] = "usage: " APP_NAME
                             " [-f <path to json config file>]\n";
 
 static const char optionsstr[] = "\t-f PATH --filelocation=PATH path to json config file\n"
@@ -43,7 +39,7 @@ static const struct option long_options[] = {
 } // extern "C"
 #endif
 
-static const char* optstring = "f:hv";
+static const char* optstring = ":f:hv";
 
 static int parse_app_cmdline_config(int argc, char* argv[])
 {
@@ -88,7 +84,6 @@ int main(int argc, char* argv[])
     if (err)
         exit(EXIT_FAILURE);
 
-#if false
     // create json object in memory
     json j_obj_string = "{ \"happy\": true, \"pi\": 3.141 }"_json;
     std::cout << j_obj_string.dump(4) << std::endl;
@@ -100,7 +95,14 @@ int main(int argc, char* argv[])
         }
     )"_json;
     std::cout << j_obj_rawstring.dump(4) << std::endl;
-#endif
+
+    // create json object
+    json j_create_json;
+    j_create_json["pi"] = 3.141;
+    j_create_json["happy"] = true;
+
+    std::string str = j_create_json.dump();
+    std::cout << str << std::endl;
 
     // read json file into string
     std::ifstream inputfile(filepath);
@@ -119,7 +121,7 @@ int main(int argc, char* argv[])
     try {
         //parse json contents from std::string object
         root = json::parse(content.str());
-    } catch (json::parse_error err) {
+    } catch (const json::parse_error& err) {
         std::cout << "Failed to parse, invalid JSON format" << std::endl;
         return -1;
     }
@@ -152,11 +154,10 @@ int main(int argc, char* argv[])
     // dump all the contents
     // to std::cout with different indentation
     std::cout << root.dump(4) << std::endl;
-#if false
     std::cout << root.dump(-1) << std::endl;
     std::cout << root.dump(0) << std::endl;
     std::cout << root.dump(4) << std::endl;
-#endif
+
     // to file
     std::ofstream outfile("sample_extn.json");
     outfile << root.dump(4);
